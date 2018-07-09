@@ -1,13 +1,13 @@
 package models
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"net/http"
 	"regexp"
-	"strings"
-	"encoding/json"
-	"fmt"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -20,9 +20,9 @@ const (
 )
 
 type ResponseData struct {
-	Campus    string `json:"campus"`
-	IsCancel  string   `json:"isCancel"`
-	UpdatedAt string `json:"updatedAt"`
+	Campus       string `json:"campus"`
+	IsCancel     string `json:"isCancel"`
+	UpdatedAt    string `json:"updatedAt"`
 	ErrorMassage string `json:"errorMassage"`
 }
 
@@ -94,6 +94,6 @@ func getCancelInfo(campus string) (responseData ResponseData, err error) {
 	responseData.UpdatedAt = re.FindString(html.Find(UPDATED_AT).Text()) +
 		" " + html.Find(UPDATED_AT+" > strong").
 		Text()
-		responseData.ErrorMassage = ""
+	responseData.ErrorMassage = ""
 	return responseData, nil
 }
